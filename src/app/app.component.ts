@@ -3,6 +3,9 @@ import { Component, ViewChild } from '@angular/core';
 import { Platform, MenuController, Nav } from 'ionic-angular';
 
 import { HelloIonicPage } from '../pages/hello-ionic/hello-ionic';
+import { BlueResidence2Page } from '../pages/blue-residence-2/blue-residence-2';
+import { CATTIAPage } from '../pages/cattia/cattia';
+import { SiteiPage } from '../pages/sitei/sitei';
 import { ListPage } from '../pages/list/list';
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -29,8 +32,11 @@ export class MyApp {
 
     // set our app's pages
     this.pages = [
-      { title: 'Hello Ionic', component: HelloIonicPage },
-      { title: 'My First List', component: ListPage }
+      { title: 'exhibit', component: HelloIonicPage },
+      { title: 'Blue Residence 2', component: BlueResidence2Page },
+      { title: 'CATTIA', component: CATTIAPage },
+      { title: 'Sitei', component: SiteiPage },
+      { title: 'TODO List', component: ListPage }
     ];
   }
 

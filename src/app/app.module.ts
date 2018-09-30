@@ -4,6 +4,9 @@ import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 
 import { HelloIonicPage } from '../pages/hello-ionic/hello-ionic';
+import { BlueResidence2Page } from '../pages/blue-residence-2/blue-residence-2';
+import { CATTIAPage } from '../pages/cattia/cattia';
+import { SiteiPage } from '../pages/sitei/sitei';
 import { ItemDetailsPage } from '../pages/item-details/item-details';
 import { ListPage } from '../pages/list/list';
 
@@ -14,6 +17,9 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   declarations: [
     MyApp,
     HelloIonicPage,
+    BlueResidence2Page,
+    CATTIAPage,
+    SiteiPage,
     ItemDetailsPage,
     ListPage
   ],
@@ -25,6 +31,9 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   entryComponents: [
     MyApp,
     HelloIonicPage,
+    BlueResidence2Page,
+    CATTIAPage,
+    SiteiPage,
     ItemDetailsPage,
     ListPage
   ],
