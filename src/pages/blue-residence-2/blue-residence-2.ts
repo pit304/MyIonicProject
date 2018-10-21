@@ -10,39 +10,26 @@ import {updateImgs} from "ionic-angular/components/content/content";
 export class BlueResidence2Page {
   @ViewChild(Content) _content: Content;
   items: Array<{title: string, url: string, style: string}>;
+  imgRoot: string;
+  map = new Map([
+    [ 1, "188_180227_cam_1_v3_comunitate.jpg" ],
+    [ 2, "188_180227_cam_3_comunitate.jpg" ],
+    [ 3, "188_180227_instagram_paste.jpg" ],
+    [ 4, "IMG-20180608-WA0003.jpg" ],
+    [ 5, "IMG-20180810-WA0005.jpg" ],
+    [ 6, "IMG-20180810-WA0006.jpg" ]
+  ]);
 
   constructor() {
     this.items = [];
-    this.items.push({
-      title: 'logo',
-      url: 'assets/imgs/blue-residence-2/188_180227_cam_1_v3_comunitate.jpg',
-      style: 'width: 300px; height: 400px;'
-    });
-    this.items.push({
-      title: 'logo',
-      url: 'assets/imgs/blue-residence-2/188_180227_cam_3_comunitate.jpg',
-      style: 'width: 400px; height: 300px;'
-    });
-    this.items.push({
-      title: 'logo',
-      url: 'assets/imgs/blue-residence-2/188_180227_instagram_paste.jpg',
-      style: 'width: 400px; height: 400px;'
-    });
-    this.items.push({
-      title: 'logo',
-      url: 'assets/imgs/blue-residence-2/IMG-20180608-WA0003.jpg',
-      style: 'width: 400px; height: 300px;'
-    });
-    this.items.push({
-      title: 'logo',
-      url: 'assets/imgs/blue-residence-2/IMG-20180810-WA0005.jpg',
-      style: 'width: 400px; height: 300px;'
-    });
-    this.items.push({
-      title: 'logo',
-      url: 'assets/imgs/blue-residence-2/IMG-20180810-WA0006.jpg',
-      style: 'width: 400px; height: 300px;'
-    });
+    this.imgRoot = 'assets/imgs/blue-residence-2/';
+    for (let key of Array.from(this.map.keys())) {
+      this.items.push({
+        title: 'logo',
+        url: this.imgRoot + this.map.get(key),
+        style: 'width: 400px; height: 400px;'
+      });
+    }
   }
 
   /**
