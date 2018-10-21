@@ -7,6 +7,7 @@ import { HelloIonicPage } from '../pages/hello-ionic/hello-ionic';
 import { BlueResidence2Page } from '../pages/blue-residence-2/blue-residence-2';
 import { CATTIAPage } from '../pages/cattia/cattia';
 import { SiteiPage } from '../pages/sitei/sitei';
+import { SlidePage } from '../pages/slide/slide';
 import { ItemDetailsPage } from '../pages/item-details/item-details';
 import { ListPage } from '../pages/list/list';
 
@@ -20,6 +21,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     BlueResidence2Page,
     CATTIAPage,
     SiteiPage,
+    SlidePage,
     ItemDetailsPage,
     ListPage
   ],
@@ -34,6 +36,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     BlueResidence2Page,
     CATTIAPage,
     SiteiPage,
+    SlidePage,
     ItemDetailsPage,
     ListPage
   ],

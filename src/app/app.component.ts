@@ -6,6 +6,7 @@ import { HelloIonicPage } from '../pages/hello-ionic/hello-ionic';
 import { BlueResidence2Page } from '../pages/blue-residence-2/blue-residence-2';
 import { CATTIAPage } from '../pages/cattia/cattia';
 import { SiteiPage } from '../pages/sitei/sitei';
+import { SlidePage } from '../pages/slide/slide';
 import { ListPage } from '../pages/list/list';
 
 @Component({
@@ -15,7 +16,7 @@ export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
   // make HelloIonicPage the root (or first) page
-  rootPage = HelloIonicPage;
+  rootPage = SlidePage;
   pages: Array<{title: string, component: any}>;
 
   constructor(
@@ -26,7 +27,8 @@ export class MyApp {
 
     // set our app's pages
     this.pages = [
-      { title: 'exhibit', component: HelloIonicPage },
+      { title: 'slides', component: SlidePage },
+      //{ title: 'exhibit', component: HelloIonicPage },
       { title: 'Blue Residence 2', component: BlueResidence2Page },
       { title: 'CATTIA', component: CATTIAPage },
       { title: 'Sitei', component: SiteiPage },

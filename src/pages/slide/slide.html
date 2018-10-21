@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-navbar>
+        <button ion-button menuToggle>
+          <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>exhibit arhitectura</ion-title>
+    <ion-buttons end>
+      <ion-item no-lines end>
+        <ion-label>Monochrome</ion-label>
+        <ion-toggle checked="false"></ion-toggle>
+      </ion-item>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-slides pager #slidesComponent>
+      <ion-slide *ngFor="let slide of slides_used">
+        <ion-toolbar>
+          <ion-buttons end>
+            <button ion-button color="primary" (click)="nextProject(slidesComponent)">Urmatorul proiect</button>
+          </ion-buttons>
+        </ion-toolbar>
+        <img [src]="slide.image" (click)="nextSlide(slidesComponent)" class="slide-image"/>
+        <h2 class="slide-title" [innerHTML]="slide.title"></h2>
+        <p [innerHTML]="slide.description"></p>
+      </ion-slide>
+    </ion-slides>
+  <ion-footer>
+    <ion-toolbar>
+      <ion-row>
+        <ion-col>
+          <a href="http://exhibit.ro/">
+            <ion-img style="width: 210px; height: 60px;" src="assets/imgs/Logo_Exhibit_suport_A4.png" cache=true></ion-img>
+          </a>
+        </ion-col>
+        <ion-col>
+          <ion-fab left bottom>
+            <button ion-fab color="light"><ion-icon name="md-share"></ion-icon></button>
+            <ion-fab-list side="right">
+              <button ion-fab><ion-icon name="logo-facebook"></ion-icon></button>
+              <button ion-fab><ion-icon name="logo-twitter"></ion-icon></button>
+              <button ion-fab><ion-icon name="logo-vimeo"></ion-icon></button>
+              <button ion-fab><ion-icon name="logo-googleplus"></ion-icon></button>
+            </ion-fab-list>
+          </ion-fab>
+        </ion-col>
+      </ion-row>
+      <ion-buttons end>
+        <button ion-button icon-end color="royal" menuToggle>
+          Meniu
+          <ion-icon name="menu"></ion-icon>
+        </button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-footer>
+</ion-content>
