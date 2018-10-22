@@ -2,7 +2,6 @@ import { Component, ViewChild } from '@angular/core';
 
 import { Platform, MenuController, Nav } from 'ionic-angular';
 
-import { HelloIonicPage } from '../pages/hello-ionic/hello-ionic';
 import { BlueResidence2Page } from '../pages/blue-residence-2/blue-residence-2';
 import { CATTIAPage } from '../pages/cattia/cattia';
 import { SiteiPage } from '../pages/sitei/sitei';
