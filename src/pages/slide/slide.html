@@ -13,16 +13,16 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content padding class="background-image">
     <ion-slides pager #slidesComponent>
       <ion-slide *ngFor="let slide of slides_used">
-        <ion-toolbar>
-          <ion-buttons end>
-            <button ion-button color="primary" (click)="nextProject(slidesComponent)">Urmatorul proiect</button>
-          </ion-buttons>
-        </ion-toolbar>
+        <div style="position: relative">
+          <ion-fab vertical="center" horizontal="center" slot="fixed">
+            <button ion-fab mini><ion-icon name="arrow-dropup" (click)="nextProject(slidesComponent)" style="z-index: 50"></ion-icon></button>
+          </ion-fab>
         <img [src]="slide.image" (click)="nextSlide(slidesComponent)" class="slide-image"/>
         <h2 class="slide-title" [innerHTML]="slide.title"></h2>
+        </div>
         <p [innerHTML]="slide.description"></p>
       </ion-slide>
     </ion-slides>

@@ -74,7 +74,13 @@ export class SlidePage {
   }
 
   nextSlide(slidesComponent : Slides) {
-    slidesComponent.slideNext();
+    if (this.slides_used.length == slidesComponent.getActiveIndex() + 1) {
+      slidesComponent.getActiveIndex()
+      slidesComponent.slideTo(0);
+      slidesComponent.update();
+    } else {
+      slidesComponent.slideNext();
+    }
   }
 
   nextProject(slidesComponent : Slides) {
@@ -85,7 +91,7 @@ export class SlidePage {
     } else if (this.slides_used == this.slides3) {
       this.slides_used = this.slides;
     }
-    slidesComponent.slideTo(0, 0, false);
+    slidesComponent.slideTo(0);
     slidesComponent.update();
   }
 }

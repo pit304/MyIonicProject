@@ -4,6 +4,11 @@ page-slide {
     border-color: transparent;
   }
 
+  .background-image {
+    background-size: cover;
+    background: url('../../assets/imgs/cattia/11p01.jpg') no-repeat;
+  }
+
   .slide-zoom {
     height: 100%;
   }
@@ -13,8 +18,8 @@ page-slide {
   }
 
   .slide-image {
-    max-height: 50%;
-    max-width: 60%;
+    max-height: 90%;
+    max-width: 80%;
     margin: 18px 0;
   }
 
