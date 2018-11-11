@@ -18,8 +18,8 @@ page-slide {
   }
 
   .slide-image {
-    max-height: 90%;
-    max-width: 80%;
+    max-height: 20%;
+    max-width: 30%;
     margin: 18px 0;
   }
 
@@ -42,4 +42,9 @@ page-slide {
     padding: 5px;
     text-align: center;
   }
+
+  ion-slides {
+    position: absolute;
+  }
+
 }

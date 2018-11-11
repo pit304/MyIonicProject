@@ -8,7 +8,9 @@ import {Content, Slides} from "ionic-angular";
 export class SlidePage {
   @ViewChild(Content) _content: Content;
   @ViewChild('slidesComponent') slidesComponent: Slides;
-  slides_used: Array<{title: string, description: string, image: string}>;
+
+  currentSlides: Array<{title: string, description: string, image: string}>;
+
   slides: Array<{title: string, description: string, image: string}>;
   slides2: Array<{title: string, description: string, image: string}>;
   slides3: Array<{title: string, description: string, image: string}>;
@@ -70,11 +72,11 @@ export class SlidePage {
         image: this.imgRoot3 + this.map3.get(key)
       });
     }
-    this.slides_used = this.slides;
+    this.currentSlides = this.slides;
   }
 
   nextSlide(slidesComponent : Slides) {
-    if (this.slides_used.length == slidesComponent.getActiveIndex() + 1) {
+    if (this.currentSlides.length == slidesComponent.getActiveIndex() + 1) {
       slidesComponent.getActiveIndex()
       slidesComponent.slideTo(0);
       slidesComponent.update();
@@ -84,12 +86,12 @@ export class SlidePage {
   }
 
   nextProject(slidesComponent : Slides) {
-    if (this.slides_used == this.slides) {
-      this.slides_used = this.slides2;
-    } else if (this.slides_used == this.slides2) {
-      this.slides_used = this.slides3;
-    } else if (this.slides_used == this.slides3) {
-      this.slides_used = this.slides;
+    if (this.currentSlides == this.slides) {
+      this.currentSlides = this.slides2;
+    } else if (this.currentSlides == this.slides2) {
+      this.currentSlides = this.slides3;
+    } else if (this.currentSlides == this.slides3) {
+      this.currentSlides = this.slides;
     }
     slidesComponent.slideTo(0);
     slidesComponent.update();

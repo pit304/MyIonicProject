@@ -5,27 +5,28 @@
         </button>
         <ion-title>exhibit arhitectura</ion-title>
     <ion-buttons end>
-      <ion-item no-lines end>
-        <ion-label>Monochrome</ion-label>
-        <ion-toggle checked="false"></ion-toggle>
+      <ion-item no-lines>
+        <ion-label fixed item-start>Monochrome</ion-label>
+        <ion-toggle item-start checked="false"></ion-toggle>
+        <ion-label>Color</ion-label>
       </ion-item>
     </ion-buttons>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding class="background-image">
-    <ion-slides pager #slidesComponent>
-      <ion-slide *ngFor="let slide of slides_used">
-        <div style="position: relative">
-          <ion-fab vertical="center" horizontal="center" slot="fixed">
-            <button ion-fab mini><ion-icon name="arrow-dropup" (click)="nextProject(slidesComponent)" style="z-index: 50"></ion-icon></button>
-          </ion-fab>
-        <img [src]="slide.image" (click)="nextSlide(slidesComponent)" class="slide-image"/>
-        <h2 class="slide-title" [innerHTML]="slide.title"></h2>
-        </div>
-        <p [innerHTML]="slide.description"></p>
-      </ion-slide>
-    </ion-slides>
+<ion-content padding>
+  <ion-slides pager #slidesComponent>
+    <ion-slide *ngFor="let slide of currentSlides">
+      <div style="position: relative">
+        <ion-fab vertical="center" horizontal="center" slot="fixed">
+          <button ion-fab mini><ion-icon name="arrow-dropup" (click)="nextProject(slidesComponent)" style="z-index: 50"></ion-icon></button>
+        </ion-fab>
+      <img [src]="slide.image" (click)="nextSlide(slidesComponent)" class="slide-image"/>
+      <h2 class="slide-title" [innerHTML]="slide.title"></h2>
+      </div>
+      <p [innerHTML]="slide.description"></p>
+    </ion-slide>
+  </ion-slides>
   <ion-footer>
     <ion-toolbar>
       <ion-row>
