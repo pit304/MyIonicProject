@@ -7,7 +7,7 @@
     <ion-buttons end>
       <ion-item no-lines>
         <ion-label fixed item-start>Monochrome</ion-label>
-        <ion-toggle item-start checked="false"></ion-toggle>
+        <ion-toggle item-start [(ngModel)]="blackWhiteToggle" (ngModelChange)="updateBlackWhite($event)"></ion-toggle>
         <ion-label>Color</ion-label>
       </ion-item>
     </ion-buttons>
@@ -15,18 +15,27 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-slides pager #slidesComponent>
-    <ion-slide *ngFor="let slide of currentSlides">
-      <div style="position: relative">
-        <ion-fab vertical="center" horizontal="center" slot="fixed">
-          <button ion-fab mini><ion-icon name="arrow-dropup" (click)="nextProject(slidesComponent)" style="z-index: 50"></ion-icon></button>
-        </ion-fab>
-      <img [src]="slide.image" (click)="nextSlide(slidesComponent)" class="slide-image"/>
-      <h2 class="slide-title" [innerHTML]="slide.title"></h2>
-      </div>
-      <p [innerHTML]="slide.description"></p>
-    </ion-slide>
-  </ion-slides>
+  <ng-template let-slides ngFor [ngForOf]="availableSlides" let-index="index">
+    <ion-slides #activeSlideComponent loop *ngIf="index == currentProjectIndex" class="active-slide">
+      <ion-slide *ngFor="let slide of slides">
+        <div [ngStyle]="{'position': 'relative', 'padding-left': slide.padding}">
+          <ion-fab *ngIf="index == currentProjectIndex" vertical="center" horizontal="center" slot="fixed">
+            <button ion-fab mini><ion-icon name="arrow-dropup" (click)="nextProject()" style="z-index: 50"></ion-icon></button>
+          </ion-fab>
+        <img [src]="slide.image" (click)="activeSlideComponent.slideNext()" class="slide-image"/>
+        <h2 *ngIf="index == currentProjectIndex" class="slide-title" [innerHTML]="slide.title"></h2>
+        </div>
+        <p *ngIf="index == currentProjectIndex" [innerHTML]="slide.description"></p>
+      </ion-slide>
+    </ion-slides>
+    <ion-slides *ngIf="index != currentProjectIndex" class="inactive-slide">
+      <ion-slide *ngFor="let slide of slides | slice:0:1">
+        <div [ngStyle]="{'position': 'relative', 'padding-left': slide.padding}">
+          <img [src]="slide.image" class="slide-image"/>
+        </div>
+      </ion-slide>
+    </ion-slides>
+  </ng-template>
   <ion-footer>
     <ion-toolbar>
       <ion-row>

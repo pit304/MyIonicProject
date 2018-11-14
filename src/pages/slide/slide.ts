@@ -1,83 +1,70 @@
-import {Component, ViewChild} from '@angular/core';
-import {Content, Slides} from "ionic-angular";
+import {Component, ViewChild, Inject} from '@angular/core';
+import {Slides} from "ionic-angular";
+
+// Import the config-related things
+import { MY_CONFIG_TOKEN, MY_CONFIG, SlidesConfig } from '../../config/image-config';
 
 @Component({
   selector: 'page-slide',
-  templateUrl: 'slide.html'
+  templateUrl: 'slide.html',
+  providers: [{ provide: MY_CONFIG_TOKEN, useValue: MY_CONFIG }]
 })
 export class SlidePage {
-  @ViewChild(Content) _content: Content;
-  @ViewChild('slidesComponent') slidesComponent: Slides;
+  @ViewChild('activeSlideComponent') activeSlideComponent: Slides;
 
-  currentSlides: Array<{title: string, description: string, image: string}>;
+  currentProjectIndex: number;
+  slideIndexArray: Array<number>;
+  currentSlides: Array<{title: string, description: string, image: string, padding: string}>;
+  availableSlides: Array<Array<{title: string, description: string, image: string, padding: string}>>;
+  localConfig: SlidesConfig;
+  blackWhiteToggle: boolean;
+  isDescActive: boolean;
 
-  slides: Array<{title: string, description: string, image: string}>;
-  slides2: Array<{title: string, description: string, image: string}>;
-  slides3: Array<{title: string, description: string, image: string}>;
-  imgRoot: string;
-  imgRoot2: string;
-  imgRoot3: string;
-  map = new Map([
-    [ 1, "188_180227_cam_1_v3_comunitate.jpg" ],
-    [ 2, "188_180227_cam_3_comunitate.jpg" ],
-    [ 3, "188_180227_instagram_paste.jpg" ],
-    [ 4, "IMG-20180608-WA0003.jpg" ],
-    [ 5, "IMG-20180810-WA0005.jpg" ],
-    [ 6, "IMG-20180810-WA0006.jpg" ]
-  ]);
-  map2 = new Map([
-    [ 1, "11p01.jpg" ],
-    [ 2, "15p04.jpg" ],
-    [ 3, "20170720_100643.jpg" ],
-    [ 4, "20180412_154222.jpg" ],
-    [ 5, "first page.jpg" ],
-    [ 6, "IMG-20180719-WA0011.jpg" ]
-  ]);
-  map3 = new Map([
-    [ 1, "cam1_ext_f3.jpg" ],
-    [ 2, "cam2_012.jpg" ],
-    [ 3, "cam3_intrarea_f.jpg" ],
-    [ 4, "cam4_scara_f4.jpg" ],
-    [ 5, "cam5_ap_f.jpg" ],
-    [ 6, "cam6_ext_f3.jpg" ]
-  ]);
-
-  constructor() {
-    this.slides = [];
-    this.imgRoot = 'assets/imgs/blue-residence-2/';
-    for (let key of Array.from(this.map.keys())) {
-      this.slides.push({
-        title: 'Blue Residence 2',
-        description: '',
-        image: this.imgRoot + this.map.get(key)
-      });
-    }
-
-    this.slides2 = [];
-    this.imgRoot2 = 'assets/imgs/cattia/';
-    for (let key of Array.from(this.map2.keys())) {
-      this.slides2.push({
-        title: 'CATTIA',
-        description: '',
-        image: this.imgRoot2 + this.map2.get(key)
-      });
-    }
-
-    this.slides3 = [];
-    this.imgRoot3 = 'assets/imgs/sitei/';
-    for (let key of Array.from(this.map3.keys())) {
-      this.slides3.push({
-        title: 'Sitei',
-        description: '',
-        image: this.imgRoot3 + this.map3.get(key)
-      });
-    }
-    this.currentSlides = this.slides;
+  constructor(@Inject(MY_CONFIG_TOKEN) private imageConfig: SlidesConfig) {
+    this.localConfig = imageConfig;
+    this.currentProjectIndex = 0;
+    this.blackWhiteToggle = false;
+    this.isDescActive = false;
+    this.slideIndexArray = new Array(this.localConfig.list.length).fill(0);
+    this.initSlides();
   }
 
-  nextSlide(slidesComponent : Slides) {
+  private initSlides() {
+    this.availableSlides = [];
+    for (let projectIndex = 0; projectIndex < this.localConfig.list.length; projectIndex++) {
+      let project = this.localConfig.list[projectIndex];
+      let slides = Array<{title: string, description: string, image: string, padding: string}>();
+      let blackWhitePath = this.blackWhiteToggle ? '' : 'black_white/';
+  //    console.log('update images for project: ' + projectIndex + ' with first image: ' + this.slideIndexArray[projectIndex]);
+      for (let imageIndex = 0; imageIndex < project.images.length; imageIndex++) {
+        if (this.slideIndexArray[projectIndex] <= imageIndex) {
+          slides.push({
+            title: project.title,
+            description: '',
+            image: 'assets/imgs/' + blackWhitePath + project.imgRoot + '/' + project.images[imageIndex],
+            padding: project.padding
+          });
+        }
+      }
+      for (let imageIndex = 0; imageIndex < project.images.length; imageIndex++) {
+        if (this.slideIndexArray[projectIndex] > imageIndex) {
+          slides.push({
+            title: project.title,
+            description: '',
+            image: 'assets/imgs/' + blackWhitePath + project.imgRoot + '/' + project.images[imageIndex],
+            padding: project.padding
+          });
+        }
+      }
+      this.availableSlides.push(slides)
+    }
+
+    this.currentSlides = this.availableSlides[this.currentProjectIndex];
+  }
+
+  /*nextSlide(slidesComponent : Slides) {
     if (this.currentSlides.length == slidesComponent.getActiveIndex() + 1) {
-      slidesComponent.getActiveIndex()
+      //slidesComponent.getActiveIndex();
       slidesComponent.slideTo(0);
       slidesComponent.update();
     } else {
@@ -86,14 +73,38 @@ export class SlidePage {
   }
 
   nextProject(slidesComponent : Slides) {
-    if (this.currentSlides == this.slides) {
-      this.currentSlides = this.slides2;
-    } else if (this.currentSlides == this.slides2) {
-      this.currentSlides = this.slides3;
-    } else if (this.currentSlides == this.slides3) {
-      this.currentSlides = this.slides;
+    if (this.availableSlides.length == this.currentProject + 1) {
+      // if last project, move to first project
+      this.currentProject = 0;
+    } else {
+      // otherwise, move to next project
+      this.currentProject = this.currentProject + 1;
     }
+    this.currentSlides = this.availableSlides[this.currentProject];
     slidesComponent.slideTo(0);
     slidesComponent.update();
+  }*/
+
+  nextProject() {
+  //  console.log('update position for project: ' + this.currentProjectIndex + ' from: ' + this.slideIndexArray[this.currentProjectIndex] + ' to: ' + (this.slideIndexArray[this.currentProjectIndex] + this.activeSlideComponent.getActiveIndex() - 1));
+    this.slideIndexArray[this.currentProjectIndex] = this.slideIndexArray[this.currentProjectIndex] + this.activeSlideComponent.getActiveIndex() - 1;
+    if (this.availableSlides.length == this.currentProjectIndex + 1) {
+      // if last project, move to first project
+      this.currentProjectIndex = 0;
+    } else {
+      // otherwise, move to next project
+      this.currentProjectIndex = this.currentProjectIndex + 1;
+    }
+    this.initSlides();
+    this.currentSlides = this.availableSlides[this.currentProjectIndex];
+    //this.activeSlideComponent.slideTo(this.slideIndexArray[this.currentProjectIndex], 0);
+    //this.activeSlideComponent.update();
+  }
+
+  updateBlackWhite() {
+   // console.log('update position for project: ' + this.currentProjectIndex + ' from: ' + this.slideIndexArray[this.currentProjectIndex] + ' to: ' + (this.slideIndexArray[this.currentProjectIndex] + this.activeSlideComponent.getActiveIndex() - 1));
+    this.slideIndexArray[this.currentProjectIndex] = this.slideIndexArray[this.currentProjectIndex] + this.activeSlideComponent.getActiveIndex() - 1;
+    this.initSlides();
+    ///this.activeSlideComponent.update();
   }
 }
