@@ -62,31 +62,14 @@ export class SlidePage {
     this.currentSlides = this.availableSlides[this.currentProjectIndex];
   }
 
-  /*nextSlide(slidesComponent : Slides) {
-    if (this.currentSlides.length == slidesComponent.getActiveIndex() + 1) {
-      //slidesComponent.getActiveIndex();
-      slidesComponent.slideTo(0);
-      slidesComponent.update();
-    } else {
-      slidesComponent.slideNext();
+  nextSlide() {
+    this.activeSlideComponent.slideNext();
+    if (this.currentSlides.length < this.activeSlideComponent.getActiveIndex()) {
+      this.activeSlideComponent.slideTo(1);
     }
   }
 
-  nextProject(slidesComponent : Slides) {
-    if (this.availableSlides.length == this.currentProject + 1) {
-      // if last project, move to first project
-      this.currentProject = 0;
-    } else {
-      // otherwise, move to next project
-      this.currentProject = this.currentProject + 1;
-    }
-    this.currentSlides = this.availableSlides[this.currentProject];
-    slidesComponent.slideTo(0);
-    slidesComponent.update();
-  }*/
-
   nextProject() {
-  //  console.log('update position for project: ' + this.currentProjectIndex + ' from: ' + this.slideIndexArray[this.currentProjectIndex] + ' to: ' + (this.slideIndexArray[this.currentProjectIndex] + this.activeSlideComponent.getActiveIndex() - 1));
     this.slideIndexArray[this.currentProjectIndex] = this.slideIndexArray[this.currentProjectIndex] + this.activeSlideComponent.getActiveIndex() - 1;
     if (this.availableSlides.length == this.currentProjectIndex + 1) {
       // if last project, move to first project
@@ -97,14 +80,10 @@ export class SlidePage {
     }
     this.initSlides();
     this.currentSlides = this.availableSlides[this.currentProjectIndex];
-    //this.activeSlideComponent.slideTo(this.slideIndexArray[this.currentProjectIndex], 0);
-    //this.activeSlideComponent.update();
   }
 
   updateBlackWhite() {
-   // console.log('update position for project: ' + this.currentProjectIndex + ' from: ' + this.slideIndexArray[this.currentProjectIndex] + ' to: ' + (this.slideIndexArray[this.currentProjectIndex] + this.activeSlideComponent.getActiveIndex() - 1));
     this.slideIndexArray[this.currentProjectIndex] = this.slideIndexArray[this.currentProjectIndex] + this.activeSlideComponent.getActiveIndex() - 1;
     this.initSlides();
-    ///this.activeSlideComponent.update();
   }
 }

@@ -14,24 +14,24 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content>
   <ng-template let-slides ngFor [ngForOf]="availableSlides" let-index="index">
-    <ion-slides #activeSlideComponent loop *ngIf="index == currentProjectIndex" class="active-slide">
-      <ion-slide *ngFor="let slide of slides">
-        <div [ngStyle]="{'position': 'relative', 'padding-left': slide.padding}">
+    <ion-slides loop #activeSlideComponent *ngIf="index == currentProjectIndex" class="active-slide">
+      <ion-slide *ngFor="let slide of slides" class="swiper-no-swiping">
+        <div class="slide-image" padding [ngStyle]="{'position': 'relative', 'padding-left': slide.padding}">
           <ion-fab *ngIf="index == currentProjectIndex" vertical="center" horizontal="center" slot="fixed">
             <button ion-fab mini><ion-icon name="arrow-dropup" (click)="nextProject()" style="z-index: 50"></ion-icon></button>
           </ion-fab>
-        <img [src]="slide.image" (click)="activeSlideComponent.slideNext()" class="slide-image"/>
-        <h2 *ngIf="index == currentProjectIndex" class="slide-title" [innerHTML]="slide.title"></h2>
+          <img [src]="slide.image" (click)="nextSlide()"/>
+          <div class="slide-title" [ngStyle]="{'padding-left': slide.padding}"><h2 *ngIf="index == currentProjectIndex" [innerHTML]="slide.title"></h2></div>
         </div>
         <p *ngIf="index == currentProjectIndex" [innerHTML]="slide.description"></p>
       </ion-slide>
     </ion-slides>
     <ion-slides *ngIf="index != currentProjectIndex" class="inactive-slide">
       <ion-slide *ngFor="let slide of slides | slice:0:1">
-        <div [ngStyle]="{'position': 'relative', 'padding-left': slide.padding}">
-          <img [src]="slide.image" class="slide-image"/>
+        <div class="slide-image" padding [ngStyle]="{'position': 'relative', 'padding-left': slide.padding}">
+            <img [src]="slide.image"/>
         </div>
       </ion-slide>
     </ion-slides>

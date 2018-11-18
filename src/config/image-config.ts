@@ -8,7 +8,7 @@ export interface SlidesConfig {
 
 // Configuration values for our app
 export const MY_CONFIG: SlidesConfig = {
-  list: [ {title: "Blue Residence 2", imgRoot: "blue-residence-2", padding: "300px", images: [
+  list: [ {title: "Blue Residence 2", imgRoot: "blue-residence-2", padding: "30vh", images: [
     "188_180227_cam_1_v3_comunitate.jpg",
     "188_180227_cam_3_comunitate.jpg",
     "188_180227_instagram_paste.jpg",
@@ -16,7 +16,7 @@ export const MY_CONFIG: SlidesConfig = {
     "IMG-20180810-WA0005.jpg",
     "IMG-20180810-WA0006.jpg"
   ]},
-    {title: "CATTIA", imgRoot: "cattia", padding: "0px", images: [
+    {title: "CATTIA", imgRoot: "cattia", padding: "10vh", images: [
     "11p01.jpg",
     "15p04.jpg",
     "20170720_100643.jpg",
@@ -24,7 +24,7 @@ export const MY_CONFIG: SlidesConfig = {
     "first page.jpg",
     "IMG-20180719-WA0011.jpg"
   ]},
-    {title: "Sitei", imgRoot: "sitei", padding: "150px", images: [
+    {title: "Sitei", imgRoot: "sitei", padding: "50vh", images: [
     "cam1_ext_f3.jpg",
     "cam2_012.jpg",
     "cam3_intrarea_f.jpg",
