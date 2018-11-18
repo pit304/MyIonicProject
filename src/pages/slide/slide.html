@@ -7,7 +7,7 @@
     <ion-buttons end>
       <ion-item no-lines>
         <ion-label fixed item-start>Monochrome</ion-label>
-        <ion-toggle item-start [(ngModel)]="blackWhiteToggle" (ngModelChange)="updateBlackWhite($event)"></ion-toggle>
+        <ion-toggle item-start [(ngModel)]="blackWhiteToggle" (ngModelChange)="updateBlackWhite()"></ion-toggle>
         <ion-label>Color</ion-label>
       </ion-item>
     </ion-buttons>
@@ -15,27 +15,34 @@
 </ion-header>
 
 <ion-content>
-  <ng-template let-slides ngFor [ngForOf]="availableSlides" let-index="index">
+  <div (click)="nextProject()">
+  <ng-template  let-slides ngFor [ngForOf]="availableSlides" let-index="index">
+    <!--<ion-fab vertical="center" horizontal="center" slot="fixed">
+      <button ion-fab mini><ion-icon name="arrow-dropup" (click)="nextProject()" style="z-index: 50"></ion-icon></button>
+    </ion-fab>-->
     <ion-slides loop #activeSlideComponent *ngIf="index == currentProjectIndex" class="active-slide">
       <ion-slide *ngFor="let slide of slides" class="swiper-no-swiping">
-        <div class="slide-image" padding [ngStyle]="{'position': 'relative', 'padding-left': slide.padding}">
-          <ion-fab *ngIf="index == currentProjectIndex" vertical="center" horizontal="center" slot="fixed">
-            <button ion-fab mini><ion-icon name="arrow-dropup" (click)="nextProject()" style="z-index: 50"></ion-icon></button>
+        <div class="slide-image-div" padding [ngStyle]="{'position': 'relative', 'margin-left': slide.padding}">
+          <ion-fab *ngIf="index == currentProjectIndex" left bottom slot="fixed">
+            <button ion-fab mini>
+              <ion-icon [name]="showTitle ? 'arrow-dropup' : 'arrow-dropdown'" (click)="toggleTitle($event)" style="z-index: 50" ></ion-icon>
+            </button>
           </ion-fab>
-          <img [src]="slide.image" (click)="nextSlide()"/>
-          <div class="slide-title" [ngStyle]="{'padding-left': slide.padding}"><h2 *ngIf="index == currentProjectIndex" [innerHTML]="slide.title"></h2></div>
+          <img class="slide-image" [src]="slide.image" (click)="nextSlide($event)"/>
+          <div *ngIf="showTitle" class="slide-title"><h2 *ngIf="index == currentProjectIndex" [innerHTML]="slide.title"></h2></div>
+          <p *ngIf="index == currentProjectIndex" [innerHTML]="slide.description"></p>
         </div>
-        <p *ngIf="index == currentProjectIndex" [innerHTML]="slide.description"></p>
       </ion-slide>
     </ion-slides>
     <ion-slides *ngIf="index != currentProjectIndex" class="inactive-slide">
       <ion-slide *ngFor="let slide of slides | slice:0:1">
-        <div class="slide-image" padding [ngStyle]="{'position': 'relative', 'padding-left': slide.padding}">
+        <div class="slide-image-div" padding [ngStyle]="{'position': 'relative', 'margin-left': slide.padding}">
             <img [src]="slide.image"/>
         </div>
       </ion-slide>
     </ion-slides>
   </ng-template>
+  </div>
   <ion-footer>
     <ion-toolbar>
       <ion-row>

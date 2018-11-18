@@ -6,22 +6,29 @@ page-slide {
 
   .scroll-content {
     overflow-y: hidden;
+    cursor: url('/../../assets/icon/ArrowUp.svg'), auto;
   }
 
   .slide-zoom {
     text-align: left;
     height: 100%;
   }
-  .slide-image {
+
+  .slide-image-div {
     position: relative;
     height: 80vh;
     object-fit: cover;
+  }
+
+  .slide-image {
+    cursor: url('/../../assets/icon/ArrowRight.svg'), auto;
   }
 
   .slide-title {
     position: absolute;
     background-color: white;
     color: black;
+    object-fit: fill;
   }
 
   b {
@@ -46,6 +53,14 @@ page-slide {
 
   ion-slides {
     position: absolute;
+  }
+
+  ion-footer {
+    cursor: default;
+  }
+
+  ion-fab {
+    padding: 10px;
   }
 
   .active-slide {

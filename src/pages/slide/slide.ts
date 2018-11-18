@@ -19,12 +19,14 @@ export class SlidePage {
   localConfig: SlidesConfig;
   blackWhiteToggle: boolean;
   isDescActive: boolean;
+  showTitle: boolean;
 
   constructor(@Inject(MY_CONFIG_TOKEN) private imageConfig: SlidesConfig) {
     this.localConfig = imageConfig;
     this.currentProjectIndex = 0;
     this.blackWhiteToggle = false;
     this.isDescActive = false;
+    this.showTitle = false;
     this.slideIndexArray = new Array(this.localConfig.list.length).fill(0);
     this.initSlides();
   }
@@ -62,11 +64,13 @@ export class SlidePage {
     this.currentSlides = this.availableSlides[this.currentProjectIndex];
   }
 
-  nextSlide() {
+  nextSlide(event) {
     this.activeSlideComponent.slideNext();
     if (this.currentSlides.length < this.activeSlideComponent.getActiveIndex()) {
       this.activeSlideComponent.slideTo(1);
     }
+    this.showTitle = false;
+    event.stopPropagation();
   }
 
   nextProject() {
@@ -80,10 +84,16 @@ export class SlidePage {
     }
     this.initSlides();
     this.currentSlides = this.availableSlides[this.currentProjectIndex];
+    this.showTitle = false;
   }
 
   updateBlackWhite() {
     this.slideIndexArray[this.currentProjectIndex] = this.slideIndexArray[this.currentProjectIndex] + this.activeSlideComponent.getActiveIndex() - 1;
     this.initSlides();
+  }
+
+  toggleTitle(event) {
+    this.showTitle = !this.showTitle;
+    event.stopPropagation();
   }
 }
